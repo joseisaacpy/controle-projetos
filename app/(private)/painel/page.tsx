@@ -14,8 +14,8 @@ export default async function Home() {
   const projetos = await prisma.projeto.findMany();
   return (
     <main className="p-6">
-      <section className="max-w-6xl mx-auto">
-        <h1 className="text-3xl font-bold">Lista de Projetos</h1>
+      <section className="">
+        <h1 className="heading-primary">Lista de Projetos</h1>
         <Table>
           <TableHeader>
             <TableRow>
