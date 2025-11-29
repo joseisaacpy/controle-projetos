@@ -51,11 +51,11 @@ export default function LoginClient() {
     }
   };
   return (
-    <section className="section-container">
-      <h1 className="h1-default">Login</h1>
+    <section className="section">
+      <h1 className="heading-primary">Login</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="separator-input-form">
-          <Label>Email:</Label>
+        <div className="form-group">
+          <Label htmlFor="email">Email:</Label>
           <Input
             id="email"
             type="email"
@@ -63,8 +63,8 @@ export default function LoginClient() {
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
         </div>
-        <div className="separator-input-form">
-          <Label>Senha:</Label>
+        <div className="form-group">
+          <Label htmlFor="senha">Senha:</Label>
           <Input
             id="senha"
             type="password"
