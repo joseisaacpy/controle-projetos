@@ -20,37 +20,47 @@ export default async function Home() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[100px]">ID</TableHead>
-              <TableHead>Nome</TableHead>
-              <TableHead>Identificador</TableHead>
-              <TableHead className="text-right">Link do Projeto</TableHead>
-              <TableHead className="text-right">Status</TableHead>
-              <TableHead className="text-right">Mensagem Bloqueio</TableHead>
-              <TableHead className="text-right">Criado em</TableHead>
-              <TableHead className="text-right">Atualizado em</TableHead>
+              <TableHead className="text-center">Nome</TableHead>
+              <TableHead className="text-center">Identificador</TableHead>
+              <TableHead className="text-center">Link do Projeto</TableHead>
+              <TableHead className="text-center">Status</TableHead>
+              <TableHead className="text-center">Mensagem Bloqueio</TableHead>
+              <TableHead className="text-center">Criado em</TableHead>
+              <TableHead className="text-center">Atualizado em</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {projetos.map((projeto) => (
               <TableRow key={projeto.id}>
-                <TableCell className="font-medium">{projeto.id}</TableCell>
                 <TableCell>{projeto.nome}</TableCell>
-                <TableCell>{projeto.identificador}</TableCell>
-                <TableCell className="text-right">
+                <TableCell>{projeto.slug}</TableCell>
+                <TableCell className="text-center">
                   <a href={projeto.linkProjeto} target="_blank">
                     {projeto.linkProjeto}
                   </a>
                 </TableCell>
-                <TableCell className="text-right">
-                  <Badge>{projeto.ativo ? "Ativo" : "Inativo"}</Badge>
+                <TableCell className="text-center">
+                  {/* se estiver ativo, mostrar badge verde, se estiver inativo, mostrar badge vermelho */}
+                  {projeto.ativo ? (
+                    <Badge className="bg-green-600">Ativo</Badge>
+                  ) : (
+                    <Badge variant="destructive">Inativo</Badge>
+                  )}
                 </TableCell>
-                <TableCell className="text-right">
-                  <Badge>{projeto.mensagemBloqueio || "Sem mensagem"}</Badge>
+                <TableCell className="text-center">
+                  {/* se tem mensagem, mostrar badge vermelho, se não, mostrar badge sem mensagem */}
+                  {projeto.mensagemBloqueio ? (
+                    <Badge variant="destructive">
+                      {projeto.mensagemBloqueio}
+                    </Badge>
+                  ) : (
+                    <Badge variant="secondary">Sem mensagem</Badge>
+                  )}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-center">
                   {formatDate(projeto.criadoEm)}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-center">
                   {formatDate(projeto.atualizadoEm)}
                 </TableCell>
               </TableRow>
