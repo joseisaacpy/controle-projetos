@@ -1,5 +1,11 @@
 import { prisma } from "@/lib/prisma";
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import {
   Table,
   TableBody,
@@ -8,7 +14,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
 import formatDate from "@/utils/formatDate";
+import { Edit, Trash } from "lucide-react";
 
 export default async function Home() {
   const projetos = await prisma.projeto.findMany();
@@ -26,6 +34,7 @@ export default async function Home() {
               <TableHead className="text-center">Mensagem Bloqueio</TableHead>
               <TableHead className="text-center">Criado em</TableHead>
               <TableHead className="text-center">Atualizado em</TableHead>
+              <TableHead className="text-center">Ações</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -34,7 +43,11 @@ export default async function Home() {
                 <TableCell>{projeto.nome}</TableCell>
                 <TableCell>{projeto.slug}</TableCell>
                 <TableCell className="text-center">
-                  <a href={projeto.linkProjeto} target="_blank">
+                  <a
+                    href={projeto.linkProjeto}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {projeto.linkProjeto}
                   </a>
                 </TableCell>
@@ -47,7 +60,8 @@ export default async function Home() {
                   )}
                 </TableCell>
                 <TableCell className="text-center">
-                  {/* se tem mensagem, mostrar badge vermelho, se não, mostrar badge sem mensagem */}
+                  {/* se tem mensagem, mostrar badge vermelho, se não, mostrar badge
+                  sem mensagem */}
                   {projeto.mensagemBloqueio ? (
                     <Badge variant="destructive">
                       {projeto.mensagemBloqueio}
@@ -61,6 +75,31 @@ export default async function Home() {
                 </TableCell>
                 <TableCell className="text-center">
                   {formatDate(projeto.atualizadoEm)}
+                </TableCell>
+                {/* célula de ações */}
+                <TableCell className="text-center flex justify-center gap-1">
+                  {/* botão de editar */}
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button>
+                        <Edit />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Editar</p>
+                    </TooltipContent>
+                  </Tooltip>
+                  {/* botão de deletar */}
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Button variant="destructive">
+                        <Trash />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Deletar</p>
+                    </TooltipContent>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}
