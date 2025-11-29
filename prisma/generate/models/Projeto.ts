@@ -37,7 +37,7 @@ export type ProjetoSumAggregateOutputType = {
 export type ProjetoMinAggregateOutputType = {
   id: number | null
   nome: string | null
-  identificador: string | null
+  slug: string | null
   linkProjeto: string | null
   ativo: boolean | null
   mensagemBloqueio: string | null
@@ -48,7 +48,7 @@ export type ProjetoMinAggregateOutputType = {
 export type ProjetoMaxAggregateOutputType = {
   id: number | null
   nome: string | null
-  identificador: string | null
+  slug: string | null
   linkProjeto: string | null
   ativo: boolean | null
   mensagemBloqueio: string | null
@@ -59,7 +59,7 @@ export type ProjetoMaxAggregateOutputType = {
 export type ProjetoCountAggregateOutputType = {
   id: number
   nome: number
-  identificador: number
+  slug: number
   linkProjeto: number
   ativo: number
   mensagemBloqueio: number
@@ -80,7 +80,7 @@ export type ProjetoSumAggregateInputType = {
 export type ProjetoMinAggregateInputType = {
   id?: true
   nome?: true
-  identificador?: true
+  slug?: true
   linkProjeto?: true
   ativo?: true
   mensagemBloqueio?: true
@@ -91,7 +91,7 @@ export type ProjetoMinAggregateInputType = {
 export type ProjetoMaxAggregateInputType = {
   id?: true
   nome?: true
-  identificador?: true
+  slug?: true
   linkProjeto?: true
   ativo?: true
   mensagemBloqueio?: true
@@ -102,7 +102,7 @@ export type ProjetoMaxAggregateInputType = {
 export type ProjetoCountAggregateInputType = {
   id?: true
   nome?: true
-  identificador?: true
+  slug?: true
   linkProjeto?: true
   ativo?: true
   mensagemBloqueio?: true
@@ -200,7 +200,7 @@ export type ProjetoGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type ProjetoGroupByOutputType = {
   id: number
   nome: string
-  identificador: string
+  slug: string
   linkProjeto: string
   ativo: boolean
   mensagemBloqueio: string | null
@@ -234,7 +234,7 @@ export type ProjetoWhereInput = {
   NOT?: Prisma.ProjetoWhereInput | Prisma.ProjetoWhereInput[]
   id?: Prisma.IntFilter<"Projeto"> | number
   nome?: Prisma.StringFilter<"Projeto"> | string
-  identificador?: Prisma.StringFilter<"Projeto"> | string
+  slug?: Prisma.StringFilter<"Projeto"> | string
   linkProjeto?: Prisma.StringFilter<"Projeto"> | string
   ativo?: Prisma.BoolFilter<"Projeto"> | boolean
   mensagemBloqueio?: Prisma.StringNullableFilter<"Projeto"> | string | null
@@ -245,7 +245,7 @@ export type ProjetoWhereInput = {
 export type ProjetoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nome?: Prisma.SortOrder
-  identificador?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   linkProjeto?: Prisma.SortOrder
   ativo?: Prisma.SortOrder
   mensagemBloqueio?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -255,7 +255,7 @@ export type ProjetoOrderByWithRelationInput = {
 
 export type ProjetoWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  identificador?: string
+  slug?: string
   linkProjeto?: string
   AND?: Prisma.ProjetoWhereInput | Prisma.ProjetoWhereInput[]
   OR?: Prisma.ProjetoWhereInput[]
@@ -265,12 +265,12 @@ export type ProjetoWhereUniqueInput = Prisma.AtLeast<{
   mensagemBloqueio?: Prisma.StringNullableFilter<"Projeto"> | string | null
   criadoEm?: Prisma.DateTimeFilter<"Projeto"> | Date | string
   atualizadoEm?: Prisma.DateTimeFilter<"Projeto"> | Date | string
-}, "id" | "identificador" | "linkProjeto">
+}, "id" | "slug" | "linkProjeto">
 
 export type ProjetoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   nome?: Prisma.SortOrder
-  identificador?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   linkProjeto?: Prisma.SortOrder
   ativo?: Prisma.SortOrder
   mensagemBloqueio?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -289,7 +289,7 @@ export type ProjetoScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ProjetoScalarWhereWithAggregatesInput | Prisma.ProjetoScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Projeto"> | number
   nome?: Prisma.StringWithAggregatesFilter<"Projeto"> | string
-  identificador?: Prisma.StringWithAggregatesFilter<"Projeto"> | string
+  slug?: Prisma.StringWithAggregatesFilter<"Projeto"> | string
   linkProjeto?: Prisma.StringWithAggregatesFilter<"Projeto"> | string
   ativo?: Prisma.BoolWithAggregatesFilter<"Projeto"> | boolean
   mensagemBloqueio?: Prisma.StringNullableWithAggregatesFilter<"Projeto"> | string | null
@@ -299,7 +299,7 @@ export type ProjetoScalarWhereWithAggregatesInput = {
 
 export type ProjetoCreateInput = {
   nome: string
-  identificador: string
+  slug: string
   linkProjeto: string
   ativo?: boolean
   mensagemBloqueio?: string | null
@@ -310,7 +310,7 @@ export type ProjetoCreateInput = {
 export type ProjetoUncheckedCreateInput = {
   id?: number
   nome: string
-  identificador: string
+  slug: string
   linkProjeto: string
   ativo?: boolean
   mensagemBloqueio?: string | null
@@ -320,7 +320,7 @@ export type ProjetoUncheckedCreateInput = {
 
 export type ProjetoUpdateInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
-  identificador?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   linkProjeto?: Prisma.StringFieldUpdateOperationsInput | string
   ativo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mensagemBloqueio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -331,7 +331,7 @@ export type ProjetoUpdateInput = {
 export type ProjetoUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nome?: Prisma.StringFieldUpdateOperationsInput | string
-  identificador?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   linkProjeto?: Prisma.StringFieldUpdateOperationsInput | string
   ativo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mensagemBloqueio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -342,7 +342,7 @@ export type ProjetoUncheckedUpdateInput = {
 export type ProjetoCreateManyInput = {
   id?: number
   nome: string
-  identificador: string
+  slug: string
   linkProjeto: string
   ativo?: boolean
   mensagemBloqueio?: string | null
@@ -352,7 +352,7 @@ export type ProjetoCreateManyInput = {
 
 export type ProjetoUpdateManyMutationInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
-  identificador?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   linkProjeto?: Prisma.StringFieldUpdateOperationsInput | string
   ativo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mensagemBloqueio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -363,7 +363,7 @@ export type ProjetoUpdateManyMutationInput = {
 export type ProjetoUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   nome?: Prisma.StringFieldUpdateOperationsInput | string
-  identificador?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
   linkProjeto?: Prisma.StringFieldUpdateOperationsInput | string
   ativo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   mensagemBloqueio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -374,7 +374,7 @@ export type ProjetoUncheckedUpdateManyInput = {
 export type ProjetoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nome?: Prisma.SortOrder
-  identificador?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   linkProjeto?: Prisma.SortOrder
   ativo?: Prisma.SortOrder
   mensagemBloqueio?: Prisma.SortOrder
@@ -389,7 +389,7 @@ export type ProjetoAvgOrderByAggregateInput = {
 export type ProjetoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nome?: Prisma.SortOrder
-  identificador?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   linkProjeto?: Prisma.SortOrder
   ativo?: Prisma.SortOrder
   mensagemBloqueio?: Prisma.SortOrder
@@ -400,7 +400,7 @@ export type ProjetoMaxOrderByAggregateInput = {
 export type ProjetoMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nome?: Prisma.SortOrder
-  identificador?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
   linkProjeto?: Prisma.SortOrder
   ativo?: Prisma.SortOrder
   mensagemBloqueio?: Prisma.SortOrder
@@ -441,7 +441,7 @@ export type IntFieldUpdateOperationsInput = {
 export type ProjetoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nome?: boolean
-  identificador?: boolean
+  slug?: boolean
   linkProjeto?: boolean
   ativo?: boolean
   mensagemBloqueio?: boolean
@@ -452,7 +452,7 @@ export type ProjetoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type ProjetoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nome?: boolean
-  identificador?: boolean
+  slug?: boolean
   linkProjeto?: boolean
   ativo?: boolean
   mensagemBloqueio?: boolean
@@ -463,7 +463,7 @@ export type ProjetoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type ProjetoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nome?: boolean
-  identificador?: boolean
+  slug?: boolean
   linkProjeto?: boolean
   ativo?: boolean
   mensagemBloqueio?: boolean
@@ -474,7 +474,7 @@ export type ProjetoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type ProjetoSelectScalar = {
   id?: boolean
   nome?: boolean
-  identificador?: boolean
+  slug?: boolean
   linkProjeto?: boolean
   ativo?: boolean
   mensagemBloqueio?: boolean
@@ -482,7 +482,7 @@ export type ProjetoSelectScalar = {
   atualizadoEm?: boolean
 }
 
-export type ProjetoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nome" | "identificador" | "linkProjeto" | "ativo" | "mensagemBloqueio" | "criadoEm" | "atualizadoEm", ExtArgs["result"]["projeto"]>
+export type ProjetoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nome" | "slug" | "linkProjeto" | "ativo" | "mensagemBloqueio" | "criadoEm" | "atualizadoEm", ExtArgs["result"]["projeto"]>
 
 export type $ProjetoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Projeto"
@@ -490,7 +490,7 @@ export type $ProjetoPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     nome: string
-    identificador: string
+    slug: string
     linkProjeto: string
     ativo: boolean
     mensagemBloqueio: string | null
@@ -921,7 +921,7 @@ export interface Prisma__ProjetoClient<T, Null = never, ExtArgs extends runtime.
 export interface ProjetoFieldRefs {
   readonly id: Prisma.FieldRef<"Projeto", 'Int'>
   readonly nome: Prisma.FieldRef<"Projeto", 'String'>
-  readonly identificador: Prisma.FieldRef<"Projeto", 'String'>
+  readonly slug: Prisma.FieldRef<"Projeto", 'String'>
   readonly linkProjeto: Prisma.FieldRef<"Projeto", 'String'>
   readonly ativo: Prisma.FieldRef<"Projeto", 'Boolean'>
   readonly mensagemBloqueio: Prisma.FieldRef<"Projeto", 'String'>

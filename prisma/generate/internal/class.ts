@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.0.1",
   "engineVersion": "f09f2815f091dbba658cdcd2264306d88bb5bda6",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../prisma/generate\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Projeto {\n  id               Int      @id @default(autoincrement()) // id\n  nome             String // nome do projeto em si\n  identificador    String   @unique // como se fosse o slug\n  linkProjeto      String   @unique // link do projeto já hospedado (vercel, github pages, netlify)\n  ativo            Boolean  @default(true) // true === ativo // false === inativo\n  mensagemBloqueio String? // mensagem de bloqueio (sem pagamento, manutenção, etc)\n  criadoEm         DateTime @default(now()) // data de criação do projeto\n  atualizadoEm     DateTime @updatedAt // data de atualização do projeto\n\n  @@map(\"projetos\")\n}\n",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../prisma/generate\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Projeto {\n  id               Int      @id @default(autoincrement()) // id\n  nome             String // nome do projeto em si\n  slug             String   @unique // como se fosse o identificador (jeito mais fácil de caçar o projeto)\n  linkProjeto      String   @unique // link do projeto já hospedado (vercel, github pages, netlify)\n  ativo            Boolean  @default(true) // true === ativo // false === inativo\n  mensagemBloqueio String? // mensagem de bloqueio (sem pagamento, manutenção, etc)\n  criadoEm         DateTime @default(now()) // data de criação do projeto\n  atualizadoEm     DateTime @updatedAt // data de atualização do projeto\n\n  @@map(\"projetos\")\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Projeto\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nome\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"identificador\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"linkProjeto\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ativo\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"mensagemBloqueio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"criadoEm\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"atualizadoEm\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"projetos\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Projeto\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nome\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"slug\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"linkProjeto\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ativo\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"mensagemBloqueio\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"criadoEm\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"atualizadoEm\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"projetos\"}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
