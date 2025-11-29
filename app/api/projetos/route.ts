@@ -2,7 +2,7 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 // GET - pega todos os projetos
-export default async function GET() {
+export async function GET() {
   try {
     const projetos = await prisma.projeto.findMany();
     // se não houver projetos, retorna array vazio
