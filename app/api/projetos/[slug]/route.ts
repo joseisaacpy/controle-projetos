@@ -14,17 +14,37 @@ export async function GET(
       },
     });
     if (!projeto) {
-      return NextResponse.json(
-        { error: "Projeto não encontrado" },
-        { status: 404 }
+      return new NextResponse(
+        JSON.stringify({ error: "Projeto não encontrado" }),
+        {
+          status: 404,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type",
+          },
+        }
       );
     }
-    return NextResponse.json(projeto, { status: 200 });
+
+    return new NextResponse(JSON.stringify(projeto), {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    });
   } catch (error) {
     console.log(error);
-    return NextResponse.json(
-      { error: "Ocorreu um erro ao buscar o projeto" },
-      { status: 500 }
+    return new NextResponse(
+      JSON.stringify({ error: "Ocorreu um erro ao buscar o projeto" }),
+      {
+        status: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
     );
   }
 }
