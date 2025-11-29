@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`flex flex-col min-h-screen poppins.className`}>
+      <body className={`flex flex-col min-h-screen ${poppins.className}`}>
         <main className="flex-1">{children}</main>
 
         <Toaster position="top-center" />
