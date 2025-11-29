@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
-import { Form } from "@/components/ui/form";
+// import { Form } from "@/components/ui/form";
+import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -14,28 +15,58 @@ export default function LoginClient() {
 
   // função para logar
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    // previne o comportamento padrão do formulário
     e.preventDefault();
     try {
-      console.log(form);
+      // valida se os campos foram preenchidos
+      if (!form.email || !form.senha) {
+        toast.error("Preencha todos os campos");
+        return;
+      }
+      // faz a requisição para o backend
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      // verifica se a requisição foi bem sucedida
+      if (!response.ok) {
+        toast.error(data.error || "Erro ao fazer login");
+        return;
+      }
+
+      // se a requisição foi bem sucedida
+      toast.success("Login realizado com sucesso");
+
+      // redireciona para o painel
+      window.location.href = "/painel";
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Erro ao fazer login");
     }
   };
   return (
-    <section>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <section className="section-container">
+      <h1 className="h1-default">Login</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <div className="separator-input-form">
           <Label>Email:</Label>
           <Input
+            id="email"
             type="email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
         </div>
-        <div>
+        <div className="separator-input-form">
           <Label>Senha:</Label>
           <Input
+            id="senha"
             type="password"
             value={form.senha}
             onChange={(e) => setForm({ ...form, senha: e.target.value })}
