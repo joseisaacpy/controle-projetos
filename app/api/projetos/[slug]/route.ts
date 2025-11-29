@@ -1,17 +1,13 @@
 import { prisma } from "@/lib/prisma";
-import { NextResponse } from "next/server";
-
-// tipa o params da rota
-type RouteParams = {
-  params: {
-    slug: string;
-  };
-};
+import { NextResponse, NextRequest } from "next/server";
 
 // GET - pega um projeto pelo seu slug/identificador
-export async function GET(request: Request, { params }: RouteParams) {
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ slug: string }> }
+) {
   try {
-    const { slug } = await params; // no next, os parâmetros devem usar await
+    const { slug } = await context.params; // no next, os parâmetros devem usar await
     const projeto = await prisma.projeto.findUnique({
       where: {
         slug: slug,
