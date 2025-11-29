@@ -118,3 +118,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+.section {
+  @apply max-w-4xl mx-auto p-4;
+}
+
+.heading-primary {
+  @apply text-3xl md:text-4xl font-bold mb-4;
+}
+
+.form-group {
+  @apply flex flex-col gap-2;
+}
