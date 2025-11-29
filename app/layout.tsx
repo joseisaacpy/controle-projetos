@@ -5,7 +5,9 @@ import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Controle de Projetos",
-  // icons: {},
+  icons: {
+    icon: "/assets/favicon/favicon.ico",
+  },
 };
 
 const poppins = Poppins({
