@@ -6,8 +6,26 @@ import { Badge } from "@/components/ui/badge";
 import { Edit, Trash } from "lucide-react";
 import formatDate from "@/utils/formatDate";
 import type { Projeto } from "@prisma/client";
+import { toast } from "sonner";
 
 export default function ProjectRow({ projeto }: { projeto: Projeto }) {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+  // função para deletar um projeto
+  async function handleDelete() {
+    try {
+      const response = await fetch(`${API_URL}/${projeto.slug}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao deletar projeto");
+      }
+      toast.success("Projeto deletado com sucesso");
+    } catch (error) {
+      console.error(error);
+      toast.error("Erro ao deletar projeto");
+    }
+  }
   return (
     <>
       <TableRow key={projeto.id}>
@@ -52,7 +70,7 @@ export default function ProjectRow({ projeto }: { projeto: Projeto }) {
             <Edit />
           </Button>
           {/* botão de deletar */}
-          <Button variant="destructive">
+          <Button variant="destructive" onClick={handleDelete}>
             <Trash />
           </Button>
         </TableCell>
