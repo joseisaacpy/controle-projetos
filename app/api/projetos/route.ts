@@ -18,3 +18,24 @@ export async function GET() {
     );
   }
 }
+
+// POST - cadastra um novo projeto
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    await prisma.projeto.create({
+      data: body,
+    });
+
+    return NextResponse.json(
+      { message: "Projeto cadastrado com sucesso" },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error(error);
+    return NextResponse.json(
+      { error: "Ocorreu um erro ao cadastrar o projeto" },
+      { status: 500 }
+    );
+  }
+}
