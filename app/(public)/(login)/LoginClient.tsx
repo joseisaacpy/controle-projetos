@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-// import { Form } from "@/components/ui/form";
 import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Eye, EyeClosed } from "lucide-react";
 
 export default function LoginClient() {
   // estado para controlar o formulário
@@ -12,6 +12,8 @@ export default function LoginClient() {
     email: "",
     senha: "",
   });
+  // estado para controlar visualização da senha
+  const [showPassword, setShowPassword] = useState(false);
 
   // função para logar
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -60,17 +62,33 @@ export default function LoginClient() {
             id="email"
             type="email"
             value={form.email}
+            placeholder="Digite seu email"
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
         </div>
         <div className="form-group">
           <Label htmlFor="senha">Senha:</Label>
-          <Input
-            id="senha"
-            type="password"
-            value={form.senha}
-            onChange={(e) => setForm({ ...form, senha: e.target.value })}
-          />
+          <div className="relative">
+            <Input
+              className="relative"
+              id="senha"
+              type={showPassword ? "text" : "password"}
+              value={form.senha}
+              placeholder="Digite sua senha"
+              onChange={(e) => setForm({ ...form, senha: e.target.value })}
+            />
+            <Button
+              className="absolute right-0"
+              type="button"
+              variant="link"
+              onClick={() => {
+                console.log(showPassword);
+                setShowPassword(!showPassword);
+              }}
+            >
+              {showPassword ? <Eye /> : <EyeClosed />}
+            </Button>
+          </div>
         </div>
         <Button type="submit">Login</Button>
       </form>
