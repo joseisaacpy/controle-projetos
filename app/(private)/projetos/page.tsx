@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import ProjectRow from "@/components/ProjectRow";
-import type { Projeto } from "@prisma/client";
+import type { Projeto } from "@/types/projeto";
 
 export default async function Projetos() {
   // busca todos os projetos do banco
