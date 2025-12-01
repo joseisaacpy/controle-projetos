@@ -48,3 +48,55 @@ export async function GET(
     );
   }
 }
+
+// DELETE - deleta um projeto
+export async function DELETE(
+  request: NextRequest,
+  context: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const { slug } = await context.params;
+
+    // pega o projeto
+    const projeto = await prisma.projeto.findUnique({
+      where: {
+        slug: slug,
+      },
+    });
+
+    // valida se o projeto existe
+    if (!projeto) {
+      return new NextResponse(
+        JSON.stringify({ error: "Projeto não encontrado" }),
+        {
+          status: 404,
+        }
+      );
+    }
+
+    // deleta o projeto
+    await prisma.projeto.delete({
+      where: {
+        slug: slug,
+      },
+    });
+    // retorna uma mensagem
+    return NextResponse.json(
+      {
+        message: "Projeto deletado com sucesso",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log(error);
+    return new NextResponse(
+      JSON.stringify({ error: "Ocorreu um erro ao deletar o projeto" }),
+      {
+        status: 500,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
+      }
+    );
+  }
+}
