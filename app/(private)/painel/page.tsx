@@ -2,11 +2,6 @@ import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
   Table,
   TableBody,
   TableCell,
@@ -79,27 +74,13 @@ export default async function Home() {
                 {/* célula de ações */}
                 <TableCell className="text-center flex justify-center gap-1">
                   {/* botão de editar */}
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Button>
-                        <Edit />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Editar</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <Button>
+                    <Edit />
+                  </Button>
                   {/* botão de deletar */}
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Button variant="destructive">
-                        <Trash />
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>Deletar</p>
-                    </TooltipContent>
-                  </Tooltip>
+                  <Button variant="destructive">
+                    <Trash />
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
