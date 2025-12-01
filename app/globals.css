@@ -126,6 +126,9 @@
 .heading-primary {
   @apply text-3xl md:text-4xl font-bold mb-4;
 }
+.heading-primary-not-m {
+  @apply text-3xl md:text-4xl font-bold;
+}
 
 .form-group {
   @apply flex flex-col gap-2;
