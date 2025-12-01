@@ -52,6 +52,37 @@ export async function GET(
   }
 }
 
+// PUT - atualiza um projeto
+export async function PUT(
+  request: NextRequest,
+  context: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const body = await request.json();
+    const { slug } = await context.params;
+    // atualiza o projeto
+    await prisma.projeto.update({
+      where: {
+        slug: slug,
+      },
+      data: body,
+    });
+    // retorna uma mensagem
+    return NextResponse.json(
+      {
+        message: "Projeto atualizado com sucesso",
+      },
+      { status: 200, headers: corsHeaders }
+    );
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { error: "Ocorreu um erro ao atualizar o projeto" },
+      { status: 500, headers: corsHeaders }
+    );
+  }
+}
+
 // DELETE - deleta um projeto
 export async function DELETE(
   request: NextRequest,
