@@ -7,10 +7,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import ProjectRow from "@/components/ProjectRow";
+import type { Projeto } from "@prisma/client";
 
 export default async function Projetos() {
   // busca todos os projetos do banco
-  const projetos = await prisma.projeto.findMany();
+  const projetos: Projeto[] = await prisma.projeto.findMany();
   return (
     <main className="p-6">
       <section className="">
