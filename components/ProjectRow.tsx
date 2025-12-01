@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 import formatDate from "@/utils/formatDate";
 import { Edit, Trash } from "lucide-react";
-import type { Projeto } from "@prisma/client";
+import type { Projeto } from "@/types/projeto";
 import { toast } from "sonner";
 
 export default function ProjectRow({ projeto }: { projeto: Projeto }) {
