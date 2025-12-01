@@ -1,19 +1,15 @@
 import { prisma } from "@/lib/prisma";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import formatDate from "@/utils/formatDate";
-import { Edit, Trash } from "lucide-react";
+import ProjectRow from "@/components/ProjectRow";
 
 export default async function Home() {
+  // busca todos os projetos do banco
   const projetos = await prisma.projeto.findMany();
   return (
     <main className="p-6">
@@ -33,56 +29,9 @@ export default async function Home() {
             </TableRow>
           </TableHeader>
           <TableBody>
+            {/* renderiza os projetos na tabela usando o componente ProjectRow */}
             {projetos.map((projeto) => (
-              <TableRow key={projeto.id}>
-                <TableCell>{projeto.nome}</TableCell>
-                <TableCell>{projeto.slug}</TableCell>
-                <TableCell className="text-center">
-                  <a
-                    href={projeto.linkProjeto}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {projeto.linkProjeto}
-                  </a>
-                </TableCell>
-                <TableCell className="text-center">
-                  {/* se estiver ativo, mostrar badge verde, se estiver inativo, mostrar badge vermelho */}
-                  {projeto.ativo ? (
-                    <Badge className="bg-green-600">Ativo</Badge>
-                  ) : (
-                    <Badge variant="destructive">Inativo</Badge>
-                  )}
-                </TableCell>
-                <TableCell className="text-center">
-                  {/* se tem mensagem, mostrar badge vermelho, se não, mostrar badge
-                  sem mensagem */}
-                  {projeto.mensagemBloqueio ? (
-                    <Badge variant="destructive">
-                      {projeto.mensagemBloqueio}
-                    </Badge>
-                  ) : (
-                    <Badge variant="secondary">Sem mensagem</Badge>
-                  )}
-                </TableCell>
-                <TableCell className="text-center">
-                  {formatDate(projeto.criadoEm)}
-                </TableCell>
-                <TableCell className="text-center">
-                  {formatDate(projeto.atualizadoEm)}
-                </TableCell>
-                {/* célula de ações */}
-                <TableCell className="text-center flex justify-center gap-1">
-                  {/* botão de editar */}
-                  <Button>
-                    <Edit />
-                  </Button>
-                  {/* botão de deletar */}
-                  <Button variant="destructive">
-                    <Trash />
-                  </Button>
-                </TableCell>
-              </TableRow>
+              <ProjectRow key={projeto.id} projeto={projeto} />
             ))}
           </TableBody>
         </Table>
