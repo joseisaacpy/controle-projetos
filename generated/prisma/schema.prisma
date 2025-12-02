@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Projeto {
+  id               Int      @id @default(autoincrement()) // id
+  nome             String // nome do projeto em si
+  slug             String   @unique // como se fosse o identificador (jeito mais fácil de caçar o projeto)
+  linkProjeto      String   @unique // link do projeto já hospedado (vercel, github pages, netlify)
+  ativo            Boolean  @default(true) // true === ativo // false === inativo
+  mensagemBloqueio String? // mensagem de bloqueio (sem pagamento, manutenção, etc)
+  criadoEm         DateTime @default(now()) // data de criação do projeto
+  atualizadoEm     DateTime @updatedAt // data de atualização do projeto
+
+  @@map("projetos")
+}
