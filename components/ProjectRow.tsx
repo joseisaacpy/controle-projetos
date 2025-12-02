@@ -1,5 +1,5 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,9 @@ import type { Projeto } from "@/types/projeto";
 import { toast } from "sonner";
 
 export default function ProjectRow({ projeto }: { projeto: Projeto }) {
+  // use router
+  const router = useRouter();
+
   // url da api
   const API_URL = "/api/projetos";
 
@@ -50,6 +53,7 @@ export default function ProjectRow({ projeto }: { projeto: Projeto }) {
         throw new Error("Erro ao deletar projeto");
       }
       toast.success("Projeto deletado com sucesso");
+      router.refresh();
     } catch (error) {
       console.error(error);
       toast.error("Erro ao deletar projeto");
@@ -71,6 +75,7 @@ export default function ProjectRow({ projeto }: { projeto: Projeto }) {
         throw new Error("Erro ao editar projeto");
       }
       toast.success("Projeto editado com sucesso");
+      router.refresh();
     } catch (error) {
       console.error(error);
       toast.error("Erro ao editar projeto");
