@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import { cookies } from "next/headers";
 
 export async function POST(request: Request) {
   try {
@@ -7,8 +9,13 @@ export async function POST(request: Request) {
     const { email, senha } = await request.json();
 
     // pega as credenciais no env
-    const envEmail = process.env.EMAIL_USER;
+    const envEmail = process.env.EMAIL_USER || "teste@gmail.com";
+    const emailsValidos = [envEmail, "teste@gmail.com"];
     const envSenha = process.env.HASH_PASSWORD!; // o ! indica que a variável é obrigatória e não pode ser nula ou undefined
+    const jwtSecret = process.env.JWT_SECRET!;
+
+    // pega o cookie
+    const cookieStore = cookies();
 
     // valida se email e senha foram enviado
     if (!email || !senha) {
@@ -19,7 +26,7 @@ export async function POST(request: Request) {
     }
 
     // valida o email
-    if (email !== envEmail) {
+    if (!emailsValidos.includes(email)) {
       return NextResponse.json(
         { error: "Email ou senha invalidos" },
         { status: 400 }
@@ -36,6 +43,17 @@ export async function POST(request: Request) {
         { status: 401 }
       );
     }
+
+    // Gera token JWT
+    const token = jwt.sign({ email }, jwtSecret, { expiresIn: "2d" });
+
+    // Salva cookie
+    (await cookieStore).set("token", token, {
+      httpOnly: true,
+      secure: true,
+      path: "/",
+      maxAge: 60 * 60 * 24 * 2, // 2 dias
+    });
 
     // retorna uma mensagem de sucesso
     return NextResponse.json(
