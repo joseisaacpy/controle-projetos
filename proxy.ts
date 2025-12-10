@@ -41,11 +41,13 @@ export function proxy(request: NextRequest) {
   if (token && rotaPublica?.quandoAutenticado === "redirect") {
     // redireciona para a rota de dashboard
     const redirectURL = request.nextUrl.clone();
-    redirectURL.pathname = "/dashboard";
+    redirectURL.pathname = "/projetos";
     return NextResponse.redirect(redirectURL);
   }
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+  matcher: [
+    "/((?!api|_next/static|_next/image|.*\\.(png|jpg|jpeg|gif|svg|webp)$).*)",
+  ],
 };
